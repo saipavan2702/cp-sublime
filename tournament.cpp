@@ -94,24 +94,18 @@ int main(){
     int n,j,k;
     cin>>n>>j>>k;
 
-    bool h=0;
+    bool h=1;
     vector<int>v(n);
     for(int &i:v)cin>>i;
 
-    priority_queue<int>pq;
-	int need=v[j];
-	for(int i:v)pq.push(i);
-
-	while(pq.size()>k){
-		pq.pop();
-	}
-
-	while(pq.size()>0){
-		if(pq.top()==need) h=1;
-		pq.pop();
-	}
+	int ref=v[j-1];
+	int hi=*max_element(all(v));
+	if(hi!=ref and k==1) h=0;
 	print(h);
 
   }
   return 0;
 }
+/*
+Problem: https://codeforces.com/contest/2123/problem/B
+*/
