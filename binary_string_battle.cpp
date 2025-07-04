@@ -1,3 +1,4 @@
+
 /*
  " I AM VENGEANCE , I AM THE KNIGHT , I AM THE BATMAN ! "
 ____ __ __ __ __ __ ___                             ___ __ __ __ __ __ ____
@@ -39,10 +40,10 @@ const int dx[4] = {1, 0, -1, 0},
 
 /*--------------------No.of digits------------------*/
 int cntDig(int n) {
-    if(n==0)
-    return 1;
+	if(n==0)
+	return 1;
 
-    return floor(log10(n)+1);
+	return floor(log10(n)+1);
 }
 
 
@@ -62,22 +63,22 @@ int isPrime(int n) {
 
 /*-----------------------check palindrome---------------------------*/
 bool check(string s) {
-    int n=s.size();
-    for(int i=0;i<n/2;i++){
-        if(s[i]!=s[n-i-1])
-        return 0;
-    }
-    return 1;
+	int n=s.size();
+	for(int i=0;i<n/2;i++){
+		if(s[i]!=s[n-i-1])
+		return 0;
+	}
+	return 1;
 }
 
 
 
 /*------------------------print "Yes/No"-------------------*/
 void print(bool h){
-    if(h)
-    cout<<1<<endl;
-    else
-    cout<<-1<<endl;
+	if(h)
+	cout<<"Alice"<<endl;
+	else
+	cout<<"Bob"<<endl;
 }
 
 
@@ -90,32 +91,21 @@ int main(){
   int T;
   cin>>T;
   while(T--){
-    int n;
-    cin>>n;
+    int n,k;
+    cin>>n>>k;
+    string s; cin>>s;
 
-    vi v(n);
-    for(int &i:v)cin>>i;
-
-    bool h=0;
     int cn=0;
+    for(int i=0;i<n;i++) if(s[i]=='1') cn++;
 
-    for(int i=0;i<n-1;i++){
-        if(abs(v[i]-v[i+1])<=1) h=1;
-    }
+    if(cn<=k or k>n/2) print(1);
+	else print(0);
 
-    if(h) cout<<0<<endl;
-    else{
-        h=0;
-        for(int i=1;i<n-1;i++){
-            if ((v[i - 1] > v[i] && v[i] < v[i + 1]) || (v[i - 1] < v[i] && v[i] > v[i + 1])) h=1;
-        }
-        print(h);
-    }
 
   }
   return 0;
 }
 
 /*
-Problem: https://codeforces.com/contest/2112/problem/B
+Problem: https://codeforces.com/contest/2123/problem/D
 */

@@ -1,3 +1,4 @@
+
 /*
  " I AM VENGEANCE , I AM THE KNIGHT , I AM THE BATMAN ! "
 ____ __ __ __ __ __ ___                             ___ __ __ __ __ __ ____
@@ -39,10 +40,10 @@ const int dx[4] = {1, 0, -1, 0},
 
 /*--------------------No.of digits------------------*/
 int cntDig(int n) {
-    if(n==0)
-    return 1;
+	if(n==0)
+	return 1;
 
-    return floor(log10(n)+1);
+	return floor(log10(n)+1);
 }
 
 
@@ -62,22 +63,22 @@ int isPrime(int n) {
 
 /*-----------------------check palindrome---------------------------*/
 bool check(string s) {
-    int n=s.size();
-    for(int i=0;i<n/2;i++){
-        if(s[i]!=s[n-i-1])
-        return 0;
-    }
-    return 1;
+	int n=s.size();
+	for(int i=0;i<n/2;i++){
+		if(s[i]!=s[n-i-1])
+		return 0;
+	}
+	return 1;
 }
 
 
 
 /*------------------------print "Yes/No"-------------------*/
 void print(bool h){
-    if(h)
-    cout<<1<<endl;
-    else
-    cout<<-1<<endl;
+	if(h)
+	cout<<"Yes"<<endl;
+	else
+	cout<<"No"<<endl;
 }
 
 
@@ -95,27 +96,27 @@ int main(){
 
     vi v(n);
     for(int &i:v)cin>>i;
+	bool h=0;
+	
+	vector<int>pref(n,INT_MAX);
+	pref[0]=v[0];
+	for(int i=1;i<n;i++) pref[i]=min(pref[i-1],v[i]);
 
-    bool h=0;
-    int cn=0;
+	vector<int>suf(n);
+	suf[n-1]=v[n-1];
+	for(int i=n-2;i>=0;i--) suf[i]=max(suf[i+1],v[i]);
 
-    for(int i=0;i<n-1;i++){
-        if(abs(v[i]-v[i+1])<=1) h=1;
-    }
-
-    if(h) cout<<0<<endl;
-    else{
-        h=0;
-        for(int i=1;i<n-1;i++){
-            if ((v[i - 1] > v[i] && v[i] < v[i + 1]) || (v[i - 1] < v[i] && v[i] > v[i + 1])) h=1;
-        }
-        print(h);
-    }
+	string s="";
+	for(int i=0;i<n;i++){
+		if(v[i]<=pref[i] or v[i]>=suf[i]) s+='1';
+		else s+='0';
+	}
+	cout<<s<<endl;
 
   }
   return 0;
 }
 
 /*
-Problem: https://codeforces.com/contest/2112/problem/B
+Problem: https://codeforces.com/contest/2123/problem/C
 */
