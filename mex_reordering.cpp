@@ -91,36 +91,32 @@ int main(){
   int T;
   cin>>T;
   while(T--){
-    int n,k;
-    cin>>n>>k;
+    int n;
+    cin>>n;
     
-    set<int>st;
-    st.insert(n);
-    ll ans=-1;
     bool h=0;
-    while(!st.empty() && !h){
-        set<int>tp;
-        for (auto s : st) {
-            if (s == k) {
-                ans++;h=1;
-                cout<<ans<<endl;
-                break;
-            }
-            if (s == 1) {
-                continue;
-            }
-            tp.insert(s / 2);
-            tp.insert((s + 1) / 2);
-        }
-        st=tp;
-        ans++;
-    }
-    if(!h) cout<<-1<<endl;
+    vi v(n);
+    unordered_map<int,int>freq;
+    for(int &i:v){
+    	cin>>i;
+    	freq[i]++;
+	}
+	sort(rbegin(v),rend(v));
+	if(v[n-1]!=0) print(0);
+	else{
+		int z=freq[0];
+		int o=freq[1];
+		if(z>1 and o==0) print(0);
+		else print(1);
+
+	}
+
+	
 
   }
   return 0;
 }
 
 /*
-Problem: https://codeforces.com/contest/2184/problem/C
+Problem: https://codeforces.com/contest/2191/problem/B
 */

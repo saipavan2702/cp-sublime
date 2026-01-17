@@ -91,19 +91,42 @@ int main(){
   int T;
   cin>>T;
   while(T--){
-    int s,k,n;
+    ll s,k,n;
     cin>>s>>k>>n;
 
-    int p=n%k,q=n/k;
-    if(s<=k){
-    	cout<<max(0,s-p)<<endl;
-    }
-    else{	
-		
+    ll p=n%k,q=n/k;
+    if (s <= k) {
+        // CASE 1: Small hourglass
+        // It resets every k minutes
+        long long time_in_cycle = n % k;
+        
+        if (time_in_cycle == 0) {
+            // Exactly at flip time, it is fully reset
+            cout << s << endl;
+        } else {
+            // Check if sand ran out
+            long long remaining = s - time_in_cycle;
+            if (remaining < 0) remaining = 0;
+            cout << remaining << endl;
+        }
+    } 
+    else {
+        // CASE 2: Large hourglass (s > k)
+        // The cycle repeats every 2*k minutes
+        long long time_in_cycle = n % (2 * k);
+ 
+        if (time_in_cycle < k) {
+            // Phase 1: We are draining the large pile 's'
+            cout << (s - time_in_cycle) << endl;
+        } else {
+            // Phase 2: We flipped the 'k' amount back to top
+            // Remaining = Initial_K - (Time_Elapsed_Since_K)
+            // Remaining = k - (time_in_cycle - k)
+            // Remaining = 2*k - time_in_cycle
+            cout << (2 * k - time_in_cycle) << endl;
+        }
     }
     
-    bool h=0;
-
   }
   return 0;
 }

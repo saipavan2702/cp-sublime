@@ -95,12 +95,15 @@ int main(){
     cin>>n>>k;
 
     vi v(n);
+    vb ok(n+2,false);
     for(int &i: v){
     	cin>>i;
+        ok[i]=true;
     }
 
-    
-
+    int mex=0;
+    while(mex<=n and ok[mex]) mex++;
+    cout<<min(mex,k-1)<<endl;
   }
   return 0;
 }
