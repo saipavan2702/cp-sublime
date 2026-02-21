@@ -71,7 +71,7 @@ bool check(string s) {
 }
 
 
- 
+
 /*------------------------print "Yes/No"-------------------*/
 void print(bool h){
 	if(h)
@@ -90,32 +90,39 @@ int main(){
   int T;
   cin>>T;
   while(T--){
-    int n;cin>>n;
-    vector<vector<int>> caps = {{1, 2, 3}, {1, 2}, {3, 4}, {4, 5}};
+    int n;cin>>n;bool h=true;
+    vi v(n+1);
+    for(int i=1;i<=n;i++) cin>>v[i];
 
-    vector<vector<int>>capp(100);
-    for(int i=0;i<n;i++){
-        for(int cap:caps[i]) capp[cap].push_back(i);
-    }
+    vi cp(n+1);
+	cp=v;sort(all(cp));
+	unordered_map<int,set<int>>pos;
+	for(int i=1;i<=n/2;i++){
+		int tp=i;
+		while(2*tp<=n){
+			pos[v[i]].insert(v[2*tp]);
+			pos[v[2*tp]].insert(v[i]);
+			tp=2*tp;
+		}
+	}
+	// for(int i=1;i<=n;i++){
+	// 	cout<<"v[i]: "<<v[i]<<" ";
+	// 	for(auto x:pos[v[i]]){
+	// 		cout<<x<<" ";
+	// 	}
+	// 	cout<<endl;
+	// }
 
-    vector<vector<int>> dp(100, vector<int>(1 << n, -1));
-    function<int(int,int)>recur=[&](int i, int mask) -> int {
-        if(i>=100) return 0;
-    	if(mask==((1<<n)-1)) return 1;
-    	if(dp[i][mask]!=-1) return dp[i][mask];
-
-    	int ans=recur(i+1,mask);
-    	for(int j:capp[i]){
-    		if(!(mask & (1<<j))) ans+=recur(i+1,mask|(1<<j));
-    	}
-    	return dp[i][mask]=ans;
-    };
-    cout<<recur(1,0)<<endl;
-
+	for(int i=1;i<=n;i++){
+		if(cp[i]!=v[i]){
+			if(pos[v[i]].find(cp[i])==pos[v[i]].end()) h=false;
+		}
+	}
+	print(h);
   }
   return 0;
 }
 
 /*
-Problem: https://www.geeksforgeeks.org/dsa/bitmasking-and-dynamic-programming-set-1-count-ways-to-assign-unique-cap-to-every-person/
+Problem: https://codeforces.com/contest/2195/problem/B
 */

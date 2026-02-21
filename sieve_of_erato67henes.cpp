@@ -71,7 +71,7 @@ bool check(string s) {
 }
 
 
- 
+
 /*------------------------print "Yes/No"-------------------*/
 void print(bool h){
 	if(h)
@@ -91,31 +91,18 @@ int main(){
   cin>>T;
   while(T--){
     int n;cin>>n;
-    vector<vector<int>> caps = {{1, 2, 3}, {1, 2}, {3, 4}, {4, 5}};
-
-    vector<vector<int>>capp(100);
-    for(int i=0;i<n;i++){
-        for(int cap:caps[i]) capp[cap].push_back(i);
+    vi v(n);
+    bool h=false;
+    for(int &i:v){
+    	cin>>i;
+    	if(i==67) h=true;
     }
-
-    vector<vector<int>> dp(100, vector<int>(1 << n, -1));
-    function<int(int,int)>recur=[&](int i, int mask) -> int {
-        if(i>=100) return 0;
-    	if(mask==((1<<n)-1)) return 1;
-    	if(dp[i][mask]!=-1) return dp[i][mask];
-
-    	int ans=recur(i+1,mask);
-    	for(int j:capp[i]){
-    		if(!(mask & (1<<j))) ans+=recur(i+1,mask|(1<<j));
-    	}
-    	return dp[i][mask]=ans;
-    };
-    cout<<recur(1,0)<<endl;
+    print(h);
 
   }
   return 0;
 }
 
 /*
-Problem: https://www.geeksforgeeks.org/dsa/bitmasking-and-dynamic-programming-set-1-count-ways-to-assign-unique-cap-to-every-person/
+Problem: https://codeforces.com/contest/2195/problem/A
 */

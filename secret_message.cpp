@@ -91,9 +91,46 @@ int main(){
   cin>>T;
   while(T--){
     int n,k;cin>>n>>k;
-    vector<string>s(k);
-    for(auto &x:s) cin>>x;
+    vector<string>enc(k);
+    for(auto &x:enc) cin>>x;
 
+    vector<int>mask(n);
+    for(int i=0;i<n;i++){
+        for(int j=0;j<k;j++) mask[i] |= (1<<(enc[j][i]-'a'));
+    }
+    
+    for(int d=1;d<=n;d++){
+        if(n%d!=0) continue;
+        string pat="";
+
+        bool pos=true;
+        for(int r=0;r<d;r++) {
+            int common=(1<<26)-1;
+            for(int x=r;x<n;x+=d) {
+                common &= mask[x];
+                if(common==0){
+                    pos=false;
+                    break;
+                }
+            }
+
+            if(common==0) {
+                pos=false;
+                break;
+            }
+            
+            int cidx=0;
+            while(!((common >> cidx) & 1)) cidx++;
+            pat+=(char)('a'+cidx);
+        }
+
+        if(pos){
+            string ans="";
+            for(int i=0;i<(n/d);i++) ans+=pat;
+            cout<<ans<<endl;
+            break;
+        }
+    }
   }
   return 0;
 }

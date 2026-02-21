@@ -94,7 +94,13 @@ int main(){
     for(int &i:p)cin>>i;
     for(int &i:v)cin>>i;
 
-    int i=0,j=0;
+    unordered_map<int,int>pos;
+    for(int i=0;i<n;i++) pos[p[i]]=i;
+
+    bool h=true;
+    for(int i=1;i<n;i++) if(pos[v[i-1]]>pos[v[i]]) h=false;
+
+    print(h);
     
   }
   return 0;
